@@ -120,4 +120,18 @@ public class PcsController : ControllerBase
         await _dbContext.SaveChangesAsync();
         return NoContent();
     }
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var pc = await _dbContext.Pcs.FindAsync(id);
+        if (pc == null)
+        {
+            return NotFound();
+        }
+
+        _dbContext.Pcs.Remove(pc);
+        await _dbContext.SaveChangesAsync();
+        return NoContent();
+    }
 }
